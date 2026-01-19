@@ -1,0 +1,346 @@
+.body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* navbar*/
+.navbar {
+  height: 5rem;
+  background-color: white;
+}
+
+.fa-compass {
+  color: #fe424d;
+  font-size: 2rem;
+}
+
+.nav-link {
+  color: black !important;
+}
+
+/* footer */
+.f-info-link a {
+  text-decoration: none;
+  color: #222;
+}
+
+.f-info-link a:hover {
+  text-decoration: underline;
+}
+
+.f-info {
+  display: flex;
+  height: 8rem;
+  background-color: #ebebeb;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: space-evenly;
+}
+
+.f-info-link {
+  width: 100%;
+  text-align: center;
+}
+
+.f-info-social {
+  text-align: center;
+  width: 100%;
+  font-size: 1.2rem;
+  margin-right: 1rem;
+}
+
+.f-info-social i {
+  margin-right: 1rem;
+}
+
+/* cards */
+.listing-card {
+  border: none !important;
+  margin-bottom: 2rem;
+}
+
+.card-img-top {
+  border-radius: 1rem !important;
+  width: 100%;
+  object-fit: cover !important;
+}
+
+.card-body {
+  padding: 0 !important;
+}
+
+.card-title {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 600; /* A suitable weight for a title */
+}
+
+.card-text {
+  font-weight: 400;
+}
+.card-img-overlay {
+  opacity: 0;
+}
+.card-img-overlay:hover {
+  opacity: 0.1;
+}
+
+/* New/Edit Form */
+.add-btn {
+  background-color: #fe424d !important;
+  border: none !important;
+  color: #fff !important;
+}
+
+.add-btn:hover {
+    background-color: #e6313d !important; /* A slightly darker shade for hover */
+}
+/*
+=========================
+Form Styling (Edit/New Page)
+=========================
+*/
+
+/* Main container for the form */
+.edit-form-container {
+  max-width: 720px;
+  margin: 2rem auto; /* Centers the form on the page */
+  padding: 2rem;
+}
+
+.edit-form-container h2 {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+/* A wrapper for each form field (helps with spacing) */
+.form-field {
+  margin-bottom: 1.25rem;
+}
+
+/* General style for all inputs and textareas */
+.form-input {
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid #d1d1d1;
+  border-radius: 0.5rem;
+  transition: border-color 0.2s, box-shadow 0.2s; /* Smooth transition for focus */
+}
+
+/* Style for when a user clicks into an input field */
+.form-input:focus {
+  outline: none;
+  border-color: #fe424d;
+  box-shadow: 0 0 0 3px rgba(254, 66, 77, 0.15);
+}
+
+/* Specific styling for the textarea to allow resizing */
+textarea.form-input {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* Adding margin to your existing button style for better spacing */
+.edit-form-container .add-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+/*
+=========================
+Show Page (Listing Details)
+=========================
+*/
+
+.show-card {
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 1rem;
+}
+
+.show-img {
+  height: 60vh;
+  border-radius: 1rem !important;
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+}
+
+.show-details h3 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.show-details p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.show-details ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.show-details li {
+  margin-bottom: 0.5rem;
+}
+
+.show-actions {
+  display: flex;
+  gap: 1rem; /* Creates space between the buttons */
+  margin-top: 1.5rem;
+}
+/* ================= RATING SLIDER ================= */
+
+.rating-label {
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+/* Slider track */
+.rating-slider::-webkit-slider-runnable-track {
+  height: 8px;
+  background: linear-gradient(90deg, #ffc107, #ff9800);
+  border-radius: 10px;
+}
+
+.rating-slider::-moz-range-track {
+  height: 8px;
+  background: linear-gradient(90deg, #ffc107, #ff9800);
+  border-radius: 10px;
+}
+
+/* Slider thumb */
+.rating-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 22px;
+  width: 22px;
+  background: #212529;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -7px;
+}
+
+.rating-slider::-moz-range-thumb {
+  height: 22px;
+  width: 22px;
+  background: #212529;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Smooth feel */
+.rating-slider {
+  transition: all 0.2s ease;
+}
+/* ⭐ ANIMATED STAR RATING */
+.rating-box {
+  display: flex;
+  gap: 8px;
+  font-size: 2rem;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.star {
+  color: #d3d3d3;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.star.hovered,
+.star.selected {
+  color: #f4b400;
+}
+
+.star:hover {
+  transform: scale(1.2);
+}
+
+/* static stars (reviews list) */
+.static-star {
+  color: #d3d3d3;
+  font-size: 1.2rem;
+}
+
+.static-star.filled {
+  color: #f4b400;
+}
+/* ================= FILTER BAR ================= */
+.filters-wrapper {
+  border-bottom: 1px solid #ddd;
+}
+
+.filters {
+  padding-bottom: 10px;
+}
+
+.filter-item {
+  text-decoration: none;
+  color: #444;
+  min-width: 80px;
+  padding: 8px 4px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.filter-item:hover {
+  color: #000;
+  border-bottom: 2px solid #bbb;
+}
+
+.active-filter {
+  color: #000;
+  font-weight: 600;
+  border-bottom: 2px solid #000;
+}
+
+.form-switch .form-check-input {
+  cursor: pointer;
+}
+/* ================= AIRBNB SEARCH ================= */
+.airbnb-search {
+  display: flex;
+  justify-content: center;
+}
+
+.search-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 520px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.search-pill i {
+  color: #ff385c;
+  font-size: 1rem;
+}
+
+.search-pill input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.search-pill button {
+  border: none;
+  border-radius: 999px;
+  padding: 8px 18px;
+  background: #ff385c;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.search-pill button:hover {
+  background: #e03150;
+}

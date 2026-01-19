@@ -1,0 +1,108 @@
+<%- layout("layouts/boilerplate") %>
+
+<div class="row mt-5">
+  <div class="col-8 offset-2">
+    <h3><%= listing.title %></h3>
+  </div>
+
+  <div class="col-8 offset-2">
+    <img src="<%= listing.image.url %>" class="show-img card-img-top">
+
+    <div class="card show-card listing-card">
+      <div class="show-details">
+        <i>Owned by: <%= listing.owner.username %></i><br>
+        <p><%= listing.description %></p>
+
+        <ul>
+          <li>&#8377;<%= listing.price.toLocaleString("en-IN") %></li>
+          <li><%= listing.location %></li>
+          <li><%= listing.country %></li>
+        </ul>
+      </div>
+
+      <% if (currUser && listing.owner && listing.owner._id.equals(currUser._id)) { %>
+        <div class="btns">
+          <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark">Edit</a>
+
+          <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE" style="display:inline;">
+            <button class="btn btn-dark">Delete</button>
+          </form>
+        </div>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- ==================== REVIEWS ==================== -->
+  <div class="col-8 offset-2 mb-5">
+    <hr>
+
+    <% if (currUser) { %>
+      <h4>Leave a Review</h4>
+
+      <form action="/listings/<%= listing._id %>/reviews" method="POST">
+
+        <!-- ⭐ ANIMATED STAR RATING -->
+        <div class="rating-box">
+          <span class="star" data-value="1">★</span>
+          <span class="star" data-value="2">★</span>
+          <span class="star" data-value="3">★</span>
+          <span class="star" data-value="4">★</span>
+          <span class="star" data-value="5">★</span>
+        </div>
+
+        <!-- hidden input for backend -->
+        <input type="hidden" name="review[rating]" id="ratingInput" required>
+
+        <!-- COMMENT -->
+        <div class="mb-3 mt-3">
+          <label class="form-label">Comment</label>
+          <textarea
+            name="review[comment]"
+            class="form-control"
+            rows="4"
+            required
+          ></textarea>
+        </div>
+
+        <button class="btn btn-outline-dark">Submit</button>
+      </form>
+
+    <% } else { %>
+      <p><a href="/login">Login</a> to leave a review.</p>
+    <% } %>
+
+    <hr>
+
+    <!-- ==================== ALL REVIEWS ==================== -->
+    <h5>All Reviews</h5>
+
+    <div class="row">
+      <% for (let review of listing.reviews) { %>
+        <div class="col-md-6 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h6>@<%= review.author.username %></h6>
+
+              <p>
+                <% for (let i = 1; i <= 5; i++) { %>
+                  <span class="static-star <%= i <= review.rating ? 'filled' : '' %>">★</span>
+                <% } %>
+              </p>
+
+              <p><%= review.comment %></p>
+
+              <% if (currUser && review.author && review.author._id.equals(currUser._id)) { %>
+                <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                  <button class="btn btn-sm btn-dark">Delete</button>
+                </form>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+
+  </div>
+</div>
+
+<script src="/js/rating.js"></script>

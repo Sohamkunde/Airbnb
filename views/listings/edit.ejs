@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wanderlust - Edit Listing</title>
+
+  <link rel="stylesheet" href="/css/style.css" />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+</head>
+
+<body>
+  <div class="edit-form-container">
+    <h2>Edit your Listing</h2>
+
+    <form
+      method="POST"
+      action="/listings/<%= listing._id %>?_method=PUT"
+      enctype="multipart/form-data"
+      class="needs-validation"
+      novalidate
+    >
+
+      <!-- TITLE -->
+      <div class="form-field">
+        <input
+          name="listing[title]"
+          value="<%= listing.title %>"
+          type="text"
+          class="form-input"
+          placeholder="Enter title"
+          required
+        />
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div class="form-field">
+        <textarea
+          name="listing[description]"
+          class="form-input"
+          required
+        ><%= listing.description %></textarea>
+      </div>
+
+      <!-- 🔹 CATEGORY (ADD-ON ONLY) -->
+      <div class="form-field">
+        <select name="listing[category]" class="form-input" required>
+          <% const categories = [
+            "trending",
+            "rooms",
+            "iconic",
+            "mountains",
+            "castles",
+            "pools",
+            "camping",
+            "farms",
+            "arctic"
+          ]; %>
+
+          <% for (let c of categories) { %>
+            <option value="<%= c %>" <%= listing.category === c ? "selected" : "" %>>
+              <%= c.charAt(0).toUpperCase() + c.slice(1) %>
+            </option>
+          <% } %>
+        </select>
+      </div>
+
+      <!-- CURRENT IMAGE -->
+      <div class="form-field">
+        <p><strong>Current Image:</strong></p>
+        <img
+          src="<%= listing.image.url %>"
+          id="currentImage"
+          style="width:250px; border-radius:8px; margin-bottom:10px;"
+        />
+      </div>
+
+      <!-- PREVIEW IMAGE -->
+      <div class="form-field">
+        <p><strong>New Image Preview:</strong></p>
+        <img
+          id="imagePreview"
+          style="display:none; width:250px; border-radius:8px;"
+        />
+      </div>
+
+      <!-- IMAGE INPUT -->
+      <div class="form-field">
+        <input
+          name="listing[image]"
+          type="file"
+          class="form-input"
+          id="imageInput"
+          accept="image/*"
+        />
+      </div>
+
+      <!-- PRICE -->
+      <div class="form-field">
+        <input
+          name="listing[price]"
+          value="<%= listing.price %>"
+          type="number"
+          class="form-input"
+          placeholder="Enter price"
+          required
+        />
+      </div>
+
+      <!-- COUNTRY -->
+      <div class="form-field">
+        <input
+          name="listing[country]"
+          value="<%= listing.country %>"
+          type="text"
+          class="form-input"
+          placeholder="Enter country"
+          required
+        />
+      </div>
+
+      <!-- LOCATION -->
+      <div class="form-field">
+        <input
+          name="listing[location]"
+          value="<%= listing.location %>"
+          type="text"
+          class="form-input"
+          placeholder="Enter location"
+          required
+        />
+      </div>
+
+      <button class="add-btn">Update</button>
+    </form>
+  </div>
+
+  <!-- JS -->
+  <script src="/js/imagePreview.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
