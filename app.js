@@ -23,7 +23,7 @@ const userRouter = require("./routes/user");
 
 /* -------------------- CONFIG -------------------- */
 const dburl = process.env.ATLAS_DB;
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 10000;
 
 /* -------------------- DB CONNECTION -------------------- */
 mongoose
@@ -94,18 +94,24 @@ app.use("/listings/:id/reviews", reviewsRouter);
 app.use("/", userRouter);
 
 app.get("/", (req, res) => {
-  res.redirect("/listings");
+  return res.redirect("/listings");
 });
 
-/* -------------------- 404 HANDLER -------------------- */
+/* -------------------- 404 HANDLER (FIXED) -------------------- */
 app.all("/", (req, res, next) => {
   next(new ExpressError(404, "Page Not Found"));
 });
 
-/* -------------------- ERROR HANDLER -------------------- */
+/* -------------------- ERROR HANDLER (CRITICAL FIX) -------------------- */
 app.use((err, req, res, next) => {
-  const { status = 500, message = "Something went wrong" } = err;
-  res.status(status).render("listings/error.ejs", { message });
+  if (res.headersSent) {
+    return next(err); // 🔥 prevents headers already sent error
+  }
+
+  const statusCode = err.status || 500;
+  const message = err.message || "Something went wrong";
+
+  res.status(statusCode).render("listings/error.ejs", { message });
 });
 
 /* -------------------- SERVER -------------------- */
