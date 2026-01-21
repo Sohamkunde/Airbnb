@@ -344,3 +344,20 @@ Show Page (Listing Details)
 .search-pill button:hover {
   background: #e03150;
 }
+#map {
+  height: 400px;
+  width: 100%;
+}
+
+.card {
+  border-radius: 14px;
+}
+
+.card h3 {
+  font-weight: 700;
+}
+
+.badge {
+  padding: 8px 12px;
+  font-size: 0.85rem;
+}

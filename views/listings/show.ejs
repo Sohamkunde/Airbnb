@@ -28,12 +28,25 @@
             <button class="btn btn-dark">Delete</button>
           </form>
         </div>
+        <a
+  href="/listings/<%= listing._id %>/bookings/owner"
+  class="btn btn-outline-dark mt-2"
+>
+  View Bookings
+</a>
+
       <% } %>
     </div>
   </div>
 
+  <!-- ==================== MAP SECTION ==================== -->
+  <div class="col-8 offset-2 mt-4">
+    <h5>Where you’ll be</h5>
+    <div id="map" style="height: 350px; border-radius: 10px;"></div>
+  </div>
+
   <!-- ==================== REVIEWS ==================== -->
-  <div class="col-8 offset-2 mb-5">
+  <div class="col-8 offset-2 mb-5 mt-4">
     <hr>
 
     <% if (currUser) { %>
@@ -50,10 +63,8 @@
           <span class="star" data-value="5">★</span>
         </div>
 
-        <!-- hidden input for backend -->
         <input type="hidden" name="review[rating]" id="ratingInput" required>
 
-        <!-- COMMENT -->
         <div class="mb-3 mt-3">
           <label class="form-label">Comment</label>
           <textarea
@@ -73,7 +84,6 @@
 
     <hr>
 
-    <!-- ==================== ALL REVIEWS ==================== -->
     <h5>All Reviews</h5>
 
     <div class="row">
@@ -105,4 +115,34 @@
   </div>
 </div>
 
+<!-- ==================== MAP SCRIPT ==================== -->
+<script>
+  const coordinates = [
+    <%= listing.geometry.coordinates[1] %>,
+    <%= listing.geometry.coordinates[0] %>
+  ];
+
+  const title = "<%= listing.title %>";
+  const locationName = "<%= listing.location %>";
+</script>
+
+<script src="/js/map.js"></script>
 <script src="/js/rating.js"></script>
+<% if (currUser) { %>
+  <form action="/listings/<%= listing._id %>/bookings" method="POST" class="mt-4">
+
+    <label>Check In</label>
+    <input type="date" name="booking[checkIn]" required class="form-control">
+
+    <label class="mt-2">Check Out</label>
+    <input type="date" name="booking[checkOut]" required class="form-control">
+
+    <button class="btn btn-danger mt-3 w-100">
+      Book Now
+    </button>
+
+  </form>
+<% } else { %>
+  <p><a href="/login">Login</a> to book this place</p>
+<% } %>
+

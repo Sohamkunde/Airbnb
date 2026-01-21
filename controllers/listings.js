@@ -34,7 +34,7 @@ module.exports.renderNewForm = (req, res) => {
   res.render("listings/new.ejs");
 };
 
-/* -------------------- SHOW -------------------- */
+/* -------------------- SHOW (MAP READY) -------------------- */
 module.exports.showListing = async (req, res) => {
   const listing = await Listing.findById(req.params.id)
     .populate({
@@ -48,12 +48,30 @@ module.exports.showListing = async (req, res) => {
     return res.redirect("/listings");
   }
 
+  // 🔒 SAFETY: if geometry missing, add default coordinates
+  if (!listing.geometry || !listing.geometry.coordinates) {
+    listing.geometry = {
+      type: "Point",
+      coordinates: [72.8777, 19.0760], // Default: Mumbai
+    };
+    await listing.save();
+  }
+
   res.render("listings/show.ejs", { listing });
 };
 
 /* -------------------- CREATE -------------------- */
 module.exports.createListing = async (req, res) => {
-  const newListing = new Listing(req.body.listing);
+  // ✅ Inject geometry BEFORE creating document
+  const listingData = {
+    ...req.body.listing,
+    geometry: {
+      type: "Point",
+      coordinates: [72.8777, 19.0760], // Mumbai default
+    },
+  };
+
+  const newListing = new Listing(listingData);
   newListing.owner = req.user._id;
 
   if (req.file) {
@@ -67,6 +85,8 @@ module.exports.createListing = async (req, res) => {
   req.flash("success", "Listing created!");
   res.redirect("/listings");
 };
+
+
 
 /* -------------------- EDIT -------------------- */
 module.exports.renderEditForm = async (req, res) => {

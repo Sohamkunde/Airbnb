@@ -40,9 +40,12 @@ module.exports.saveRedirectUrl = (req, res, next) => {
   next();
 };
 
-/* -------------------- LISTING VALIDATION -------------------- */
+/* -------------------- LISTING VALIDATION (✅ FIXED) -------------------- */
 module.exports.validateListings = (req, res, next) => {
-  const { error } = listingSchema.validate(req.body);
+  const { error } = listingSchema.validate(req.body, {
+    stripUnknown: true,   // ✅ THIS IS THE FIX
+  });
+
   if (error) {
     const msg = error.details.map(el => el.message).join(",");
     throw new ExpressError(400, msg);

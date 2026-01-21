@@ -1,4 +1,3 @@
-// Joi schema (prevents hopscotch / fake requests)
 const Joi = require("joi");
 
 const listingSchema = Joi.object({
@@ -9,6 +8,19 @@ const listingSchema = Joi.object({
     location: Joi.string().required(),
     country: Joi.string().required(),
     image: Joi.string().allow("", null),
+
+    // ✅ ADD THIS
+    category: Joi.string().valid(
+      "trending",
+      "rooms",
+      "iconic",
+      "mountains",
+      "castles",
+      "pools",
+      "camping",
+      "farms",
+      "arctic"
+    ).optional(),
   }).required(),
 });
 

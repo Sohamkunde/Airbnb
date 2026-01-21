@@ -1,0 +1,77 @@
+<%- layout("layouts/boilerplate") %>
+
+<div class="container mt-4">
+
+  <!-- 🔝 HEADER -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>📊 Your Listing Bookings</h3>
+    <a href="/listings/<%= listing._id %>" class="btn btn-outline-dark">
+  ← Back to Listing
+</a>
+
+  </div>
+
+  <!-- 📦 SUMMARY CARDS -->
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <div class="card shadow-sm text-center">
+        <div class="card-body">
+          <h6>Total Bookings</h6>
+          <h3><%= bookings.length %></h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm text-center">
+        <div class="card-body">
+          <h6>Upcoming Bookings</h6>
+          <h3>
+            <%= bookings.filter(b => new Date(b.checkIn) >= new Date()).length %>
+          </h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm text-center">
+        <div class="card-body">
+          <h6>Guests Hosted</h6>
+          <h3><%= bookings.length %></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 📋 BOOKINGS LIST -->
+  <% if (bookings.length === 0) { %>
+    <div class="alert alert-info text-center">
+      😴 No bookings yet. Your first guest is on the way!
+    </div>
+  <% } else { %>
+    <div class="row">
+      <% bookings.forEach(booking => { %>
+        <div class="col-md-6 mb-3">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="mb-2">@<%= booking.user.username %></h5>
+
+              <p class="mb-1">
+                📅 <strong>Check-in:</strong>
+                <%= booking.checkIn.toDateString() %>
+              </p>
+
+              <p class="mb-1">
+                📅 <strong>Check-out:</strong>
+                <%= booking.checkOut.toDateString() %>
+              </p>
+
+              <span class="badge bg-success mt-2">Confirmed</span>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+
+</div>

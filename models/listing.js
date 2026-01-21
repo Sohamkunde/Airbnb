@@ -7,14 +7,33 @@ const listingSchema = new Schema({
     type: String,
     required: true,
   },
+
   description: String,
+
   image: {
     filename: String,
     url: String,
   },
+
   price: Number,
+
   location: String,
   country: String,
+
+  /* ================== 🌍 MAP LOCATION (NEW) ================== */
+  geometry: {
+    type: {
+      type: String,
+      enum: ["Point"],
+      required: true,
+      default: "Point",
+    },
+    coordinates: {
+      type: [Number], // [longitude, latitude]
+      required: true,
+    },
+  },
+  /* ============================================================ */
 
   // 🔑 OWNER FIELD (VERY IMPORTANT)
   owner: {
@@ -29,7 +48,7 @@ const listingSchema = new Schema({
     },
   ],
 
-  /* ================== 🔹 NEW ADD-ON FEATURE ================== */
+  /* ================== 🔹 CATEGORY FEATURE ================== */
   category: {
     type: String,
     enum: [
@@ -41,7 +60,7 @@ const listingSchema = new Schema({
       "pools",
       "camping",
       "farms",
-      "arctic"
+      "arctic",
     ],
     default: "trending",
   },
